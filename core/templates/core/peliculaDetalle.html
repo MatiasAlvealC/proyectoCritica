@@ -1,0 +1,71 @@
+<!-- Breadcrumb -->
+<section class="py-5 bg-light">
+    <div class="container px-5">
+        <div class="d-flex align-items-center">
+            <a href="./index.html" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Home</a>
+            <span class="mx-2 text-muted">&gt;</span>
+            <a href="./categories.html" class="text-decoration-none text-muted">Categories</a>
+            <span class="mx-2 text-muted">&gt;</span>
+            <span class="text-muted">Romance</span>
+        </div>
+    </div>
+</section>
+
+<!-- Movie Detail Section -->
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <!-- Movie Poster -->
+            <div class="col-lg-3">
+                <img class="img-fluid rounded shadow" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" />
+                <div class="d-flex justify-content-between mt-3">
+                    <span><i class="fa fa-comments me-1"></i> 11</span>
+                    <span><i class="fa fa-eye me-1"></i> 9141</span>
+                </div>
+            </div>
+            <!-- Movie Content -->
+            <div class="col-lg-9">
+                <article>
+                    <!-- Title -->
+                    <header class="mb-4">
+                        <h1 class="fw-bolder mb-1">{{ pelicula.titulo }}</h1>
+                        <div class="text-muted fst-italic mb-2">Estrenada el {{ pelicula.fecha_estreno }}</div>
+                        <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ pelicula.genero }}</a>
+                    </header>
+                    <!-- Synopsis -->
+                    <section class="mb-5">
+                        <p class="fs-5 mb-4">{{ pelicula.sinopsis }}</p>
+                        <ul class="list-unstyled">
+                            <li><strong>Duración:</strong> {{ pelicula.duracion }} minutos</li>
+                            <li><strong>Director:</strong> {{ pelicula.director }}</li>
+                        </ul>
+                    </section>
+                </article>
+                <!-- Comments -->
+                <section>
+                    <h5 class="fw-bold">Comentarios</h5>
+                    <div class="card bg-light my-4">
+                        <div class="card-body">
+                            <form class="mb-4">
+                                <textarea class="form-control" rows="3" placeholder="Escribe un comentario..."></textarea>
+                                <button class="btn btn-primary mt-2" type="submit">Publicar</button>
+                            </form>
+                            {% for comentario in comentarios %}
+                            <div class="d-flex mb-4">
+                                <div class="flex-shrink-0">
+                                    <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                </div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">{{ comentario.autor }}</div>
+                                    <p>{{ comentario.texto }}</p>
+                                    <div class="text-muted fst-italic">{{ comentario.fecha }}</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>

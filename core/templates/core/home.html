@@ -1,0 +1,61 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+<section class="py-5">
+  <div class="container px-5 my-5">
+      <div class="row gx-5 justify-content-center">
+          <div class="col-lg-8 col-xl-6">
+              <div class="text-center">
+                  <h2 class="fw-bolder">Películas</h2>
+                  <p class="lead fw-normal text-muted mb-5">Descubre las películas más populares y explora nuestros contenidos.</p>
+              </div>
+          </div>
+      </div>
+      <div class="row gx-5">
+          {% for pelicula in page_obj %}
+          <div class="col-lg-4 mb-5">
+              <div class="card h-100 shadow border-0">
+                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" />
+                  <div class="card-body p-4">
+                      <div class="badge bg-primary bg-gradient rounded-pill mb-2">Película</div>
+                      <a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}">
+                          <h5 class="card-title mb-3">{{ pelicula.titulo }}</h5>
+                      </a>
+                      <p class="card-text mb-0">Comentarios: <i class="fa fa-comments"></i> 11 &middot; Vistas: <i class="fa fa-eye"></i> 9141</p>
+                  </div>
+                  <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                      <div class="d-flex align-items-end justify-content-between">
+                          <div class="d-flex align-items-center">
+                              <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                              <div class="small">
+                                  <div class="fw-bold">CineFanático</div>
+                                  <div class="text-muted">Última actualización: {{ pelicula.fecha_actualizacion|date:"d M, Y" }}</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+      <div class="product__pagination">
+          {% if page_obj.has_previous %}
+          <a href="?page=1"><i class="fa fa-angle-double-left"></i></a>
+          <a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
+          {% endif %}
+          {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+          <a href="?page={{ num }}" class="current-page">{{ num }}</a>
+          {% else %}
+          <a href="?page={{ num }}">{{ num }}</a>
+          {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a>
+          <a href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-angle-double-right"></i></a>
+          {% endif %}
+      </div>
+  </div>
+</section>
+
+{% endblock %}
