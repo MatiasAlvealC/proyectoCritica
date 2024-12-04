@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+<section class="py-5">
+  <div class="container px-5 my-5">
+      <div class="breadcrumb-option mb-4">
+          <div class="d-flex align-items-center">
+              <a href="/" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Inicio</a>
+              <span class="mx-2 text-muted">&gt;</span>
+              <a href="/categories/" class="text-decoration-none text-muted">Categorías</a>
+              <span class="mx-2 text-muted">&gt;</span>
+              <span class="text-muted">Drama</span>
+          </div>
+      </div>
+      <div class="row gx-5 justify-content-between mb-4">
+          <div class="col-lg-8 col-md-8 col-sm-6">
+              <h2 class="fw-bolder">Películas de Drama</h2>
+              <p class="lead fw-normal text-muted mb-0">Descubre las historias más profundas y conmovedoras.</p>
+          </div>
+      </div>
+      <div class="row gx-5">
+          {% for pelicula in page_obj %}
+          <div class="col-lg-4 mb-5">
+              <div class="card h-100 shadow border-0">
+                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" />
+                  <div class="card-body p-4">
+                      <h5><a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}">{{ pelicula.titulo }}</a></h5>
+                  </div>
+              </div>
+          </div>
+          {% empty %}
+          <p class="text-center">No hay películas disponibles en esta categoría.</p>
+          {% endfor %}
+      </div>
+      <nav class="d-flex justify-content-center mt-4">
+          <ul class="pagination">
+              {% if page_obj.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+              {% endif %}
+              {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+              <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+              {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+              {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+              {% endif %}
+          </ul>
+      </nav>
+  </div>
+</section>
+{% endblock %}

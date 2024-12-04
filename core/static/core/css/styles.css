@@ -10846,3 +10846,18 @@ html {
   background-repeat: no-repeat;
   min-height: 15rem;
 }
+
+
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.pagination .page-link {
+  color: #007bff;
+}
+
+.pagination .page-link:hover {
+  background-color: #e9ecef;
+}

@@ -1,3 +1,6 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
 <!-- Breadcrumb -->
 <section class="py-5 bg-light">
     <div class="container px-5">
@@ -30,8 +33,12 @@
                     <header class="mb-4">
                         <h1 class="fw-bolder mb-1">{{ pelicula.titulo }}</h1>
                         <div class="text-muted fst-italic mb-2">Estrenada el {{ pelicula.fecha_estreno }}</div>
-                        <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ pelicula.genero }}</a>
-                    </header>
+                        {% for categoria in pelicula.genero.all %}
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ categoria.nombre }}</a>
+                        {% empty %}
+                            <span class="text-muted">Sin categoría</span>
+                        {% endfor %}
+                    </header>                    
                     <!-- Synopsis -->
                     <section class="mb-5">
                         <p class="fs-5 mb-4">{{ pelicula.sinopsis }}</p>
@@ -69,3 +76,4 @@
         </div>
     </div>
 </section>
+{% endblock %}
