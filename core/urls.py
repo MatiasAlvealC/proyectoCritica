@@ -19,4 +19,5 @@ urlpatterns = [
     path('documental/', views.documental, name='documental'),
     path('nosotros/', views.nosotros, name='nosotros'),
     path('contacto/', views.contacto, name='contacto'),
+    path('pelicula/<int:pelicula_id>/comentar/', views.comentar, name='comentar'),
 ]

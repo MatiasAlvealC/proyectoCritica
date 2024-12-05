@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
   peliculas = Pelicula.objects.all().order_by('-created')  # Ordena por fecha de creación descendente
@@ -17,9 +18,26 @@ def home(request):
 
 
 def pelicula_detalles(request, pelicula_id):
-  pelicula = get_object_or_404(Pelicula, id=pelicula_id)
-  return render(request, "core/pelicula_detalles.html", {"pelicula": pelicula})
+    pelicula = get_object_or_404(Pelicula, id=pelicula_id)
+    comentarios = pelicula.comentarios.all() 
+    return render(request, "core/pelicula_detalles.html", {
+        "pelicula": pelicula,
+        "comentarios": comentarios
+    })
 
+
+@login_required
+def comentar(request, pelicula_id):
+    if request.method == "POST":
+        pelicula = get_object_or_404(Pelicula, id=pelicula_id)
+        texto = request.POST.get("texto", "").strip()
+        if texto:
+            Comentario.objects.create(
+                pelicula=pelicula,
+                usuario=request.user,
+                texto=texto
+            )
+        return redirect('pelicula_detalles', pelicula_id=pelicula.id)
 
 def accion_aventura(request):
     peliculas = Pelicula.objects.filter(

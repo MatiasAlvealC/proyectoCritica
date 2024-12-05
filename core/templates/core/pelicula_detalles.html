@@ -53,25 +53,28 @@
                     <h5 class="fw-bold">Comentarios</h5>
                     <div class="card bg-light my-4">
                         <div class="card-body">
-                            <form class="mb-4">
-                                <textarea class="form-control" rows="3" placeholder="Escribe un comentario..."></textarea>
+                            <form class="mb-4" method="POST" action="{% url 'comentar' pelicula.id %}">
+                                {% csrf_token %}
+                                <textarea class="form-control" rows="3" name="texto" placeholder="Escribe un comentario..."></textarea>
                                 <button class="btn btn-primary mt-2" type="submit">Publicar</button>
                             </form>
                             {% for comentario in comentarios %}
                             <div class="d-flex mb-4">
                                 <div class="flex-shrink-0">
-                                    <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                    <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="Usuario" />
                                 </div>
                                 <div class="ms-3">
-                                    <div class="fw-bold">{{ comentario.autor }}</div>
+                                    <div class="fw-bold">{{ comentario.usuario.username }}</div>
                                     <p>{{ comentario.texto }}</p>
-                                    <div class="text-muted fst-italic">{{ comentario.fecha }}</div>
+                                    <div class="text-muted fst-italic">{{ comentario.fecha_creacion }}</div>
                                 </div>
                             </div>
+                            {% empty %}
+                            <p class="text-muted">No hay comentarios aún. ¡Sé el primero en comentar!</p>
                             {% endfor %}
                         </div>
                     </div>
-                </section>
+                </section>                
             </div>
         </div>
     </div>
