@@ -1,15 +1,16 @@
-{% extends 'core/base.html' %}
+{% extends 'core/base.html' %}  {# Extiende la plantilla base para mantener la estructura común del sitio. #}
 
-{% block banner-img %}
-{% load static %}
+{% block banner-img %} 
+{% load static %} {# Carga el archivo estático para imágenes, CSS, JS, etc. #}
 {% endblock %}
 
-{% block banner-txt %}
+{% block banner-txt %} 
 {% endblock %}
 
-{% block content %}
-{% load crispy_forms_tags %}
+{% block content %} 
+{% load crispy_forms_tags %} {# Carga el filtro crispy para mejorar la presentación del formulario. #}
 
+<!-- Título del formulario de registro -->
 <div class="row gx-5 justify-content-center">
     <div class="col-lg-8 col-xl-6">
         <div class="text-center">
@@ -17,15 +18,17 @@
         </div>
     </div>
 </div>
+
+<!-- Formulario de registro -->
 <form id="register-form" action="" method="post">
-    {% csrf_token %}
+    {% csrf_token %}  {# Añade el token CSRF para seguridad en los formularios #}
 
     <div class="card mx-auto" style="width: 30rem;">
         <div class="card-body">
             <h5 class="card-title">Complete todos los campos</h5>
-            {{ form|crispy }}
-            <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">Iniciar sesión</a>
-            <button class="btn btn-sm btn-primary float-end" type="submit">Registrarse</button>
+            {{ form|crispy }}  {# Renderiza el formulario utilizando el filtro crispy para darle un mejor formato visual. #}
+            <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">Iniciar sesión</a>  {# Enlace a la página de inicio de sesión para usuarios que ya tienen cuenta. #}
+            <button class="btn btn-sm btn-primary float-end" type="submit">Registrarse</button>  {# Botón para enviar el formulario y registrar al usuario. #}
         </div>
     </div>
 </form>

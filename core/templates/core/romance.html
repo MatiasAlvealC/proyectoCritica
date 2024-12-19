@@ -1,61 +1,64 @@
-{% extends 'core/base.html' %}
-{% load static %}
-{% block content %}
-<section class="py-5">
-  <div class="container px-5 my-5">
+{% extends 'core/base.html' %} {# Extiende la plantilla base para usar su estructura general. #}
+{% load static %} {# Carga las etiquetas `static` de Django para gestionar archivos estáticos. #}
+{% block content %} {# Inicio del bloque `content`, que será insertado en la plantilla base. #}
+<section class="py-5"> {# Sección con padding vertical de 5 unidades. #}
+  <div class="container px-5 my-5"> {# Contenedor con padding horizontal de 5 unidades y margen vertical. #}
+
       <!-- Breadcrumb -->
-      <div class="breadcrumb-option mb-4">
-          <div class="d-flex align-items-center">
-              <a href="/" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Inicio</a>
-              <span class="mx-2 text-muted">&gt;</span>
-              <a href="/categories/" class="text-decoration-none text-muted">Categorías</a>
-              <span class="mx-2 text-muted">&gt;</span>
-              <span class="text-muted">Romance</span>
-          </div>
-      </div>
+      <div class="breadcrumb-option mb-4"> {# Contenedor para las migas de pan con margen inferior. #}
+          <div class="d-flex align-items-center"> {# Fila para alinear elementos al centro verticalmente. #}
+              <a href="/" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Inicio</a> {# Enlace al inicio con ícono. #}
+              <span class="mx-2 text-muted">&gt;</span> {# Separador entre enlaces de las migas de pan. #}
+              <a href="/categories/" class="text-decoration-none text-muted">Categorías</a> {# Enlace a la página de categorías. #}
+              <span class="mx-2 text-muted">&gt;</span> {# Separador entre enlaces de las migas de pan. #}
+              <span class="text-muted">Romance</span> {# Indica la categoría actual como texto simple. #}
+          </div> {# Cierra el contenedor de las migas de pan. #}
+      </div> {# Cierra el contenedor de opciones de migas de pan. #}
 
       <!-- Title and Description -->
-      <div class="row gx-5 justify-content-between mb-4">
-          <div class="col-lg-8 col-md-8 col-sm-6">
-              <h2 class="fw-bolder">Películas de Romance</h2>
-              <p class="lead fw-normal text-muted mb-0">Encuentra las historias de amor más cautivadoras.</p>
-          </div>
-      </div>
+      <div class="row gx-5 justify-content-between mb-4"> {# Fila con separación horizontal y margen inferior. #}
+          <div class="col-lg-8 col-md-8 col-sm-6"> {# Columna que ocupa 8 de 12 espacios en pantallas grandes. #}
+              <h2 class="fw-bolder">Películas de Romance</h2> {# Título principal en negrita. #}
+              <p class="lead fw-normal text-muted mb-0">Encuentra las historias de amor más cautivadoras.</p> {# Descripción con texto gris claro. #}
+          </div> {# Cierra la columna del título y descripción. #}
+      </div> {# Cierra la fila del título y descripción. #}
 
       <!-- Movie Cards -->
-      <div class="row gx-5">
-          {% for pelicula in page_obj %}
-          <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" />
-                  <div class="card-body p-4">
-                      <h5><a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}">{{ pelicula.titulo }}</a></h5>
-                  </div>
-              </div>
-          </div>
-          {% empty %}
-          <p class="text-center">No hay películas disponibles en esta categoría.</p>
-          {% endfor %}
-      </div>
+      <div class="row gx-5"> {# Fila para las tarjetas de películas con separación horizontal. #}
+          {% for pelicula in page_obj %} {# Itera sobre las películas disponibles en el objeto `page_obj`. #}
+          <div class="col-lg-4 mb-5"> {# Columna que ocupa 4 de 12 espacios en pantallas grandes con margen inferior. #}
+              <div class="card h-100 shadow border-0"> {# Tarjeta con sombra y sin bordes, ajustada a la altura completa. #}
+                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" /> {# Imagen superior de la tarjeta, cargada desde la URL de la película. #}
+                  <div class="card-body p-4"> {# Cuerpo de la tarjeta con padding interno. #}
+                      <h5><a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}">{{ pelicula.titulo }}</a></h5> {# Título de la película con enlace a su detalle. #}
+                  </div> {# Cierra el cuerpo de la tarjeta. #}
+              </div> {# Cierra la tarjeta. #}
+          </div> {# Cierra la columna de la tarjeta. #}
+          {% empty %} {# Caso alternativo si no hay películas disponibles. #}
+          <p class="text-center">No hay películas disponibles en esta categoría.</p> {# Mensaje informativo centrado. #}
+          {% endfor %} {# Finaliza el bucle sobre las películas. #}
+      </div> {# Cierra la fila de tarjetas de películas. #}
 
       <!-- Pagination -->
-      <nav class="d-flex justify-content-center mt-4">
-          <ul class="pagination">
-              {% if page_obj.has_previous %}
-              <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-              {% endif %}
-              {% for num in page_obj.paginator.page_range %}
-              {% if page_obj.number == num %}
-              <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-              {% else %}
-              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-              {% endif %}
-              {% endfor %}
-              {% if page_obj.has_next %}
-              <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-              {% endif %}
-          </ul>
-      </nav>
-  </div>
-</section>
-{% endblock %}
+      <nav class="d-flex justify-content-center mt-4"> {# Contenedor para la paginación con contenido centrado y margen superior. #}
+          <ul class="pagination"> {# Lista de elementos de la paginación. #}
+              {% if page_obj.has_previous %} {# Comprueba si existe una página anterior. #}
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li> {# Enlace a la página anterior. #}
+              {% endif %} {# Finaliza la condición para página anterior. #}
+
+              {% for num in page_obj.paginator.page_range %} {# Itera sobre el rango de números de página. #}
+              {% if page_obj.number == num %} {# Si el número de página actual coincide con el iterado. #}
+              <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li> {# Enlace activo para la página actual. #}
+              {% else %} {# Si no es la página actual. #}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li> {# Enlace para una página no activa. #}
+              {% endif %} {# Finaliza la condición para la página activa. #}
+              {% endfor %} {# Finaliza el bucle de números de página. #}
+
+              {% if page_obj.has_next %} {# Comprueba si existe una página siguiente. #}
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li> {# Enlace a la página siguiente. #}
+              {% endif %} {# Finaliza la condición para página siguiente. #}
+          </ul> {# Cierra la lista de elementos de paginación. #}
+      </nav> {# Cierra el contenedor de la paginación. #}
+  </div> {# Cierra el contenedor principal. #}
+</section> {# Cierra la sección principal. #}
+{% endblock %} {# Finaliza el bloque de contenido. #}

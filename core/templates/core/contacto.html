@@ -1,33 +1,37 @@
-{% extends 'core/base.html' %}
-{% load static %}
-{% block content %}
-<section class="py-5">
-    <div class="container px-5 my-5">
-        <div class="text-center mb-5">
-            <h1 class="fw-bold">Contáctanos</h1>
-            <p class="text-muted">¿Tienes alguna pregunta o comentario? Estamos aquí para ayudarte.</p>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <form>
-                    <div class="mb-3">
-                        <label for="name" class="form-label fw-bold">Nombre</label>
-                        <input type="text" class="form-control" id="name" placeholder="Tu nombre completo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label fw-bold">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="tuemail@ejemplo.com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label fw-bold">Mensaje</label>
-                        <textarea class="form-control" id="message" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">Enviar Mensaje</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-{% endblock %}
+{% extends 'core/base.html' %} {# Extiende la plantilla base "core/base.html" para reutilizar su estructura. #}
+{% load static %} {# Carga la etiqueta `static` de Django para usar archivos estáticos en la plantilla. #}
+{% block content %} {# Define un bloque "content" que será insertado en la plantilla base. #}
+<section class="py-5"> {# Crea una sección con un espaciado vertical de 5 unidades. #}
+    <div class="container px-5 my-5"> {# Contenedor con espaciado horizontal y vertical para un diseño limpio. #}
+        <div class="text-center mb-5"> {# Contenedor alineado al centro con un margen inferior. #}
+            <h1 class="fw-bold">Contáctanos</h1> {# Encabezado principal con texto en negrita. #}
+            <p class="text-muted">¿Tienes alguna pregunta o comentario? Estamos aquí para ayudarte.</p> {# Texto descriptivo con estilo gris claro. #}
+        </div> {# Cierra el contenedor centrado. #}
+
+        <div class="row justify-content-center"> {# Inicia una fila de Bootstrap y centra los elementos horizontalmente. #}
+            <div class="col-lg-8"> {# Define una columna de ancho 8 para pantallas grandes. #}
+                <form> {# Inicia el formulario de contacto. #}
+                    <div class="mb-3"> {# Contenedor para el campo con un margen inferior. #}
+                        <label for="name" class="form-label fw-bold">Nombre</label> {# Etiqueta para el campo "Nombre" con texto en negrita. #}
+                        <input type="text" class="form-control" id="name" placeholder="Tu nombre completo" required> {# Campo de entrada de texto para el nombre, obligatorio. #}
+                    </div> {# Cierra el contenedor del campo de nombre. #}
+
+                    <div class="mb-3"> {# Contenedor para el campo de correo electrónico. #}
+                        <label for="email" class="form-label fw-bold">Correo Electrónico</label> {# Etiqueta para el campo de correo electrónico con texto en negrita. #}
+                        <input type="email" class="form-control" id="email" placeholder="tuemail@ejemplo.com" required> {# Campo de entrada de correo electrónico, obligatorio. #}
+                    </div> {# Cierra el contenedor del campo de correo electrónico. #}
+
+                    <div class="mb-3"> {# Contenedor para el campo de mensaje. #}
+                        <label for="message" class="form-label fw-bold">Mensaje</label> {# Etiqueta para el campo de texto con texto en negrita. #}
+                        <textarea class="form-control" id="message" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea> {# Área de texto para el mensaje, obligatoria. #}
+                    </div> {# Cierra el contenedor del campo de mensaje. #}
+
+                    <div class="d-grid"> {# Contenedor para alinear el botón al ancho completo. #}
+                        <button type="submit" class="btn btn-primary btn-lg">Enviar Mensaje</button> {# Botón de envío grande y con estilo primario. #}
+                    </div> {# Cierra el contenedor del botón. #}
+                </form> {# Cierra el formulario. #}
+            </div> {# Cierra la columna. #}
+        </div> {# Cierra la fila centrada. #}
+    </div> {# Cierra el contenedor principal. #}
+</section> {# Cierra la sección de la página. #}
+{% endblock %} {# Finaliza el bloque "content". #}

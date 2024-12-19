@@ -1,61 +1,65 @@
-{% extends 'core/base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'core/base.html' %} {# Extiende la plantilla base. #}
+{% load static %} {# Carga de las etiquetas para manejar archivos estáticos. #}
+{% block content %} {# Inicio del bloque de contenido que se renderizará dentro de la plantilla base. #}
 <section class="py-5">
   <div class="container px-5 my-5">
       <!-- Breadcrumb -->
-      <div class="breadcrumb-option mb-4">
+      <div class="breadcrumb-option mb-4"> {# Opciones de navegación tipo "breadcrumb". #}
           <div class="d-flex align-items-center">
-              <a href="/" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Inicio</a>
+              <a href="/" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Inicio</a> {# Enlace a la página de inicio. #}
+              <span class="mx-2 text-muted">&gt;</span> {# Separador visual entre las secciones del breadcrumb. #}
+              <a href="/categories/" class="text-decoration-none text-muted">Categorías</a> {# Enlace a la sección de categorías. #}
               <span class="mx-2 text-muted">&gt;</span>
-              <a href="/categories/" class="text-decoration-none text-muted">Categorías</a>
-              <span class="mx-2 text-muted">&gt;</span>
-              <span class="text-muted">Ciencia Ficción/Fantasía</span>
+              <span class="text-muted">Ciencia Ficción/Fantasía</span> {# Nombre de la categoría actual. #}
           </div>
       </div>
 
       <!-- Title and Description -->
-      <div class="row gx-5 justify-content-between mb-4">
-          <div class="col-lg-8 col-md-8 col-sm-6">
-              <h2 class="fw-bolder">Películas de Ciencia Ficción/Fantasía</h2>
-              <p class="lead fw-normal text-muted mb-0">Adéntrate en mundos de ciencia y magia.</p>
+      <div class="row gx-5 justify-content-between mb-4"> {# Fila con el título y la descripción de la categoría. #}
+          <div class="col-lg-8 col-md-8 col-sm-6"> {# Columna para el título y la descripción. #}
+              <h2 class="fw-bolder">Películas de Ciencia Ficción/Fantasía</h2> {# Título principal de la categoría. #}
+              <p class="lead fw-normal text-muted mb-0">Adéntrate en mundos de ciencia y magia.</p> {# Descripción de la categoría. #}
           </div>
       </div>
 
       <!-- Movie Cards -->
-      <div class="row gx-5">
-          {% for pelicula in page_obj %}
-          <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" />
-                  <div class="card-body p-4">
-                      <h5><a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}">{{ pelicula.titulo }}</a></h5>
+      <div class="row gx-5"> {# Fila que contendrá las tarjetas de las películas. #}
+          {% for pelicula in page_obj %} {# Itera sobre el conjunto de películas (paginadas). #}
+          <div class="col-lg-4 mb-5"> {# Columna para cada tarjeta de película. #}
+              <div class="card h-100 shadow border-0"> {# Tarjeta con sombra y sin bordes. #}
+                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" /> {# Imagen de la película. #}
+                  <div class="card-body p-4"> {# Contenedor del cuerpo de la tarjeta. #}
+                      <h5>
+                          <a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}">
+                              {{ pelicula.titulo }}
+                          </a> {# Enlace al detalle de la película. #}
+                      </h5>
                   </div>
               </div>
           </div>
-          {% empty %}
+          {% empty %} {# Muestra este bloque si no hay películas disponibles en la categoría. #}
           <p class="text-center">No hay películas disponibles en esta categoría.</p>
           {% endfor %}
       </div>
 
       <!-- Pagination -->
-      <nav class="d-flex justify-content-center mt-4">
+      <nav class="d-flex justify-content-center mt-4"> {# Navegación para la paginación. #}
           <ul class="pagination">
-              {% if page_obj.has_previous %}
-              <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+              {% if page_obj.has_previous %} {# Si hay una página anterior, muestra el botón de retroceso. #}
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li> {# Botón para ir a la página anterior. #}
               {% endif %}
-              {% for num in page_obj.paginator.page_range %}
-              {% if page_obj.number == num %}
+              {% for num in page_obj.paginator.page_range %} {# Itera sobre el rango de páginas disponibles. #}
+              {% if page_obj.number == num %} {# Marca la página actual como activa. #}
               <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-              {% else %}
+              {% else %} {# Enlace a una página específica si no es la actual. #}
               <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
               {% endif %}
               {% endfor %}
-              {% if page_obj.has_next %}
-              <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+              {% if page_obj.has_next %} {# Si hay una página siguiente, muestra el botón de avance. #}
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li> {# Botón para ir a la página siguiente. #}
               {% endif %}
           </ul>
       </nav>
   </div>
 </section>
-{% endblock %}
+{% endblock %} {# Fin del bloque de contenido. #}

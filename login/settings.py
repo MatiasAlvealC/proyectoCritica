@@ -10,60 +10,58 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
+from pathlib import Path  # Importa el módulo Path de la librería pathlib para gestionar rutas de archivos de manera más sencilla.
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = Path(__file__).resolve().parent.parent  # Define la ruta base del proyecto, buscando el directorio principal del proyecto.
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r9c-(du+u7jz9!dr=l-vqs_+2^$yzy%z9+u2_1srgpd^$6a!s!'
+SECRET_KEY = 'django-insecure-r9c-(du+u7jz9!dr=l-vqs_+2^$yzy%z9+u2_1srgpd^$6a!s!'  # Clave secreta para Django, debe mantenerse privada en producción.
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # Habilita el modo de depuración, que debe desactivarse en producción.
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = []  # Lista de hosts permitidos, debe incluir los dominios de la aplicación en producción.
 
 # Application definition
 
-INSTALLED_APPS = [
-    'crispy_forms',
-    'crispy_bootstrap5',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'core',
+INSTALLED_APPS = [  # Lista de aplicaciones instaladas en el proyecto.
+    'crispy_forms',  # Paquete para trabajar con formularios de manera más estilizada.
+    'crispy_bootstrap5',  # Paquete para usar Bootstrap 5 con crispy_forms.
+    'django.contrib.admin',  # Admin de Django.
+    'django.contrib.auth',  # Sistema de autenticación de Django.
+    'django.contrib.contenttypes',  # Gestión de tipos de contenido de Django.
+    'django.contrib.sessions',  # Gestión de sesiones en Django.
+    'django.contrib.messages',  # Sistema de mensajes en Django.
+    'django.contrib.staticfiles',  # Archivos estáticos de Django.
+    'core',  # Aplicación principal del proyecto.
 ]
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  # Permite usar el paquete bootstrap5 con crispy_forms.
+CRISPY_TEMPLATE_PACK = "bootstrap5"  # Configura crispy_forms para usar el estilo de Bootstrap 5.
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+MIDDLEWARE = [  # Lista de middleware para manejar las solicitudes y respuestas.
+    'django.middleware.security.SecurityMiddleware',  # Middleware de seguridad.
+    'django.contrib.sessions.middleware.SessionMiddleware',  # Middleware para manejo de sesiones.
+    'django.middleware.common.CommonMiddleware',  # Middleware común.
+    'django.middleware.csrf.CsrfViewMiddleware',  # Middleware para proteger contra ataques CSRF.
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Middleware de autenticación.
+    'django.contrib.messages.middleware.MessageMiddleware',  # Middleware de mensajes.
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # Middleware para prevenir ataques de clickjacking.
 ]
 
-ROOT_URLCONF = 'login.urls'
+ROOT_URLCONF = 'login.urls'  # Define el archivo de configuración de URLs para el proyecto.
 
-TEMPLATES = [
+TEMPLATES = [  # Configuración de los templates de Django.
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',  # Backend para usar Django templates.
+        'DIRS': [],  # Directorios adicionales para templates (vacío en este caso).
+        'APP_DIRS': True,  # Permite cargar templates desde directorios de las aplicaciones.
         'OPTIONS': {
-            'context_processors': [
+            'context_processors': [  # Procesadores de contexto para agregar información al renderizado.
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -73,24 +71,22 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'login.wsgi.application'
-
+WSGI_APPLICATION = 'login.wsgi.application'  # Define la aplicación WSGI que ejecuta el proyecto.
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+DATABASES = {  # Configuración de la base de datos.
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # Usa SQLite como base de datos.
+        'NAME': BASE_DIR / 'db.sqlite3',  # Define la ruta al archivo de base de datos.
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = [  # Validadores de contraseñas para mayor seguridad.
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -105,29 +101,27 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'es'  # Define el idioma de la aplicación (español).
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC'  # Define la zona horaria (UTC).
 
-USE_I18N = True
+USE_I18N = True  # Habilita la internacionalización para traducciones.
 
-USE_TZ = True
-
+USE_TZ = True  # Habilita el uso de zonas horarias.
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/'  # Define la URL para archivos estáticos.
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Define el tipo de campo de clave primaria predeterminado.
 
 # VARIABLES DE REDIRECCION DE LOGIN Y LOGOUT 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'  # Define la URL a la que se redirige al usuario después de iniciar sesión.
+LOGOUT_REDIRECT_URL = 'home'  # Define la URL a la que se redirige al usuario después de cerrar sesión.

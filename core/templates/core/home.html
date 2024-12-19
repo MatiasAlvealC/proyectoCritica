@@ -1,86 +1,86 @@
-{% extends 'core/base.html' %}
-{% load static %}
-{% block content %}
-<section class="py-5">
-  <div class="container px-5 my-5">
-      <div class="row gx-5 justify-content-center">
-          <div class="col-lg-8 col-xl-6">
-              <div class="text-center">
-                  <h2 class="fw-bolder">Películas</h2>
-                  <p class="lead fw-normal text-muted mb-5">Descubre las películas más populares y explora nuestros contenidos.</p>
-              </div>
-          </div>
-      </div>
-      <div class="row gx-5">
-          {% for pelicula in page_obj %}
-          <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" />
-                  <div class="card-body p-4">
-                      <div class="badge bg-primary bg-gradient rounded-pill mb-2">Película</div>
-                      <a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}">
-                          <h5 class="card-title mb-3">{{ pelicula.titulo }}</h5>
-                      </a>
-                      <p class="card-text mb-0">Comentarios: <i class="fa fa-comments"></i> 11 &middot; Vistas: <i class="fa fa-eye"></i> 9141</p>
-                  </div>
-                  <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                      <div class="d-flex align-items-end justify-content-between">
-                          <div class="d-flex align-items-center">
-                              <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                              <div class="small">
-                                  <div class="fw-bold">CineFanático</div>
-                                  <div class="text-muted">Última actualización: {{ pelicula.fecha_actualizacion|date:"d M, Y" }}</div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          {% endfor %}
-      </div>
-      <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
-        <ul class="pagination">
-          {% if page_obj.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="?page=1" aria-label="Primera">
-              <span aria-hidden="true">&laquo;&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          {% endif %}
+{% extends 'core/base.html' %} {# Extiende la plantilla base para reutilizar su estructura. #}
+{% load static %} {# Carga la etiqueta `static` de Django para usar archivos estáticos en la plantilla. #}
+{% block content %} {# Inicia el bloque de contenido que será insertado en la plantilla base. #}
+<section class="py-5"> {# Sección con un espaciado vertical de 5 unidades. #}
+  <div class="container px-5 my-5"> {# Contenedor con espaciado horizontal y vertical para un diseño limpio. #}
+      <div class="row gx-5 justify-content-center"> {# Fila con separación horizontal y centrado de contenido. #}
+          <div class="col-lg-8 col-xl-6"> {# Columna que ocupa 8 de 12 espacios en pantallas grandes y 6 en pantallas extra grandes. #}
+              <div class="text-center"> {# Contenedor centrado para el texto. #}
+                  <h2 class="fw-bolder">Películas</h2> {# Título principal de la sección en negrita. #}
+                  <p class="lead fw-normal text-muted mb-5">Descubre las películas más populares y explora nuestros contenidos.</p> {# Descripción de la sección con estilo gris claro y margen inferior. #}
+              </div> {# Cierra el contenedor centrado. #}
+          </div> {# Cierra la columna de título y descripción. #}
+      </div> {# Cierra la fila de título y descripción. #}
+      <div class="row gx-5"> {# Fila con separación horizontal para las tarjetas de películas. #}
+          {% for pelicula in page_obj %} {# Inicia un bucle para iterar sobre el objeto de películas paginado. #}
+          <div class="col-lg-4 mb-5"> {# Columna que ocupa 4 de 12 espacios en pantallas grandes con margen inferior. #}
+              <div class="card h-100 shadow border-0"> {# Tarjeta con sombra, sin bordes, que ocupa toda la altura disponible. #}
+                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" /> {# Imagen superior de la tarjeta con la portada de la película. #}
+                  <div class="card-body p-4"> {# Cuerpo de la tarjeta con padding. #}
+                      <div class="badge bg-primary bg-gradient rounded-pill mb-2">Película</div> {# Insignia que indica que es una película. #}
+                      <a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}"> {# Enlace al detalle de la película usando su ID. #}
+                          <h5 class="card-title mb-3">{{ pelicula.titulo }}</h5> {# Título de la película dentro de la tarjeta. #}
+                      </a> {# Cierra el enlace al detalle de la película. #}
+                      <p class="card-text mb-0">Comentarios: <i class="fa fa-comments"></i> 11 &middot; Vistas: <i class="fa fa-eye"></i> 9141</p> {# Información adicional sobre comentarios y vistas de la película. #}
+                  </div> {# Cierra el cuerpo de la tarjeta. #}
+                  <div class="card-footer p-4 pt-0 bg-transparent border-top-0"> {# Pie de la tarjeta sin borde superior. #}
+                      <div class="d-flex align-items-end justify-content-between"> {# Contenedor para alinear los elementos del pie. #}
+                          <div class="d-flex align-items-center"> {# Contenedor flexible para mostrar información del usuario. #}
+                              <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." /> {# Imagen de avatar del usuario. #}
+                              <div class="small"> {# Contenedor pequeño para el nombre y fecha de actualización. #}
+                                  <div class="fw-bold">CineFanático</div> {# Nombre del usuario que actualizó la información. #}
+                                  <div class="text-muted">Última actualización: {{ pelicula.fecha_actualizacion|date:"d M, Y" }}</div> {# Fecha de la última actualización de la película. #}
+                              </div> {# Cierra el contenedor pequeño. #}
+                          </div> {# Cierra el contenedor flexible. #}
+                      </div> {# Cierra el contenedor de alineación. #}
+                  </div> {# Cierra el pie de la tarjeta. #}
+              </div> {# Cierra la tarjeta. #}
+          </div> {# Cierra la columna de la tarjeta. #}
+          {% endfor %} {# Finaliza el bucle de películas. #}
+      </div> {# Cierra la fila de tarjetas de películas. #}
+      <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4"> {# Contenedor de la paginación centrado con margen superior. #}
+        <ul class="pagination"> {# Lista para los enlaces de paginación. #}
+          {% if page_obj.has_previous %} {# Verifica si hay una página anterior. #}
+          <li class="page-item"> {# Elemento de la lista para la página anterior. #}
+            <a class="page-link" href="?page=1" aria-label="Primera"> {# Enlace a la primera página. #}
+              <span aria-hidden="true">&laquo;&laquo;</span> {# Ícono de navegación a la primera página. #}
+            </a> {# Cierra el enlace a la primera página. #}
+          </li> {# Cierra el elemento de la lista para la página anterior. #}
+          <li class="page-item"> {# Elemento de la lista para la página anterior. #}
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior"> {# Enlace a la página anterior. #}
+              <span aria-hidden="true">&laquo;</span> {# Ícono de navegación a la página anterior. #}
+            </a> {# Cierra el enlace a la página anterior. #}
+          </li> {# Cierra el elemento de la lista para la página anterior. #}
+          {% endif %} {# Cierra la condición de página anterior. #}
       
-          {% for num in page_obj.paginator.page_range %}
-          {% if page_obj.number == num %}
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-          </li>
-          {% else %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-          </li>
-          {% endif %}
-          {% endfor %}
+          {% for num in page_obj.paginator.page_range %} {# Itera sobre el rango de páginas disponibles. #}
+          {% if page_obj.number == num %} {# Si el número de página actual es igual al iterado. #}
+          <li class="page-item active" aria-current="page"> {# Elemento activo para la página actual. #}
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a> {# Enlace no funcional para la página actual. #}
+          </li> {# Cierra el elemento activo. #}
+          {% else %} {# Si no es la página actual. #}
+          <li class="page-item"> {# Elemento de la lista para las páginas no activas. #}
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a> {# Enlace funcional a cada página. #}
+          </li> {# Cierra el elemento de la lista para las páginas no activas. #}
+          {% endif %} {# Cierra la condición de página actual. #}
+          {% endfor %} {# Finaliza el bucle de páginas. #}
       
-          {% if page_obj.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Última">
-              <span aria-hidden="true">&raquo;&raquo;</span>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
+          {% if page_obj.has_next %} {# Verifica si hay una página siguiente. #}
+          <li class="page-item"> {# Elemento de la lista para la página siguiente. #}
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente"> {# Enlace a la página siguiente. #}
+              <span aria-hidden="true">&raquo;</span> {# Ícono de navegación a la página siguiente. #}
+            </a> {# Cierra el enlace a la página siguiente. #}
+          </li> {# Cierra el elemento de la lista para la página siguiente. #}
+          <li class="page-item"> {# Elemento de la lista para la última página. #}
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Última"> {# Enlace a la última página. #}
+              <span aria-hidden="true">&raquo;&raquo;</span> {# Ícono de navegación a la última página. #}
+            </a> {# Cierra el enlace a la última página. #}
+          </li> {# Cierra el elemento de la lista para la última página. #}
+          {% endif %} {# Cierra la condición de página siguiente. #}
+        </ul> {# Cierra la lista de enlaces de paginación. #}
+      </nav> {# Cierra el contenedor de la paginación. #}
       
-  </div>
-</section>
+  </div> {# Cierra el contenedor principal. #}
+</section> {# Cierra la sección principal. #}
 
-{% endblock %}
+{% endblock %} {# Finaliza el bloque de contenido. #}

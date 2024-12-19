@@ -1,82 +1,92 @@
-{% extends 'core/base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'core/base.html' %} {# Extiende la plantilla base para mantener consistencia. #}
+{% load static %} {# Carga etiquetas estáticas para gestionar archivos como imágenes y CSS. #}
+{% block content %} {# Inicio del bloque de contenido que reemplazará el placeholder en la base. #}
+
 <!-- Breadcrumb -->
-<section class="py-5 bg-light">
-    <div class="container px-5">
-        <div class="d-flex align-items-center">
-            <a href="./index.html" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Home</a>
-            <span class="mx-2 text-muted">&gt;</span>
-            <a href="./categories.html" class="text-decoration-none text-muted">Categories</a>
-            <span class="mx-2 text-muted">&gt;</span>
-            <span class="text-muted">Romance</span>
+<section class="py-5 bg-light"> {# Sección de migas de pan con fondo claro y padding vertical. #}
+    <div class="container px-5"> {# Contenedor con padding horizontal. #}
+        <div class="d-flex align-items-center"> {# Alineación vertical de elementos. #}
+            <a href="./index.html" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Home</a> {# Enlace al inicio con ícono. #}
+            <span class="mx-2 text-muted">&gt;</span> {# Separador. #}
+            <a href="./categories.html" class="text-decoration-none text-muted">Categories</a> {# Enlace a categorías. #}
+            <span class="mx-2 text-muted">&gt;</span> {# Separador. #}
+            <span class="text-muted">Romance</span> {# Nombre de la categoría actual. #}
         </div>
     </div>
 </section>
 
 <!-- Movie Detail Section -->
-<section class="py-5">
-    <div class="container px-5 my-5">
-        <div class="row gx-5">
+<section class="py-5"> {# Sección principal para los detalles de la película. #}
+    <div class="container px-5 my-5"> {# Contenedor con padding horizontal y margen vertical. #}
+        <div class="row gx-5"> {# Fila con separación horizontal. #}
+
             <!-- Movie Poster -->
-            <div class="col-lg-3">
-                <img class="img-fluid rounded shadow" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" />
-                <div class="d-flex justify-content-between mt-3">
-                    <span><i class="fa fa-comments me-1"></i> 11</span>
-                    <span><i class="fa fa-eye me-1"></i> 9141</span>
+            <div class="col-lg-3"> {# Columna que ocupa 3 de 12 espacios en pantallas grandes. #}
+                <img class="img-fluid rounded shadow" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" /> {# Imagen de la película con bordes redondeados y sombra. #}
+                <div class="d-flex justify-content-between mt-3"> {# Contenedor para estadísticas. #}
+                    <span><i class="fa fa-comments me-1"></i> 11</span> {# Muestra el número de comentarios. #}
+                    <span><i class="fa fa-eye me-1"></i> 9141</span> {# Muestra el número de visualizaciones. #}
                 </div>
             </div>
+
             <!-- Movie Content -->
-            <div class="col-lg-9">
-                <article>
+            <div class="col-lg-9"> {# Columna que ocupa 9 de 12 espacios en pantallas grandes. #}
+                <article> {# Contenedor principal de los detalles de la película. #}
+
                     <!-- Title -->
-                    <header class="mb-4">
-                        <h1 class="fw-bolder mb-1">{{ pelicula.titulo }}</h1>
-                        <div class="text-muted fst-italic mb-2">Estrenada el {{ pelicula.fecha_estreno }}</div>
-                        {% for categoria in pelicula.genero.all %}
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ categoria.nombre }}</a>
+                    <header class="mb-4"> {# Encabezado con margen inferior. #}
+                        <h1 class="fw-bolder mb-1">{{ pelicula.titulo }}</h1> {# Título de la película. #}
+                        <div class="text-muted fst-italic mb-2">Estrenada el {{ pelicula.fecha_estreno }}</div> {# Fecha de estreno. #}
+                        {% for categoria in pelicula.genero.all %} {# Itera sobre las categorías del género de la película. #}
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#">{{ categoria.nombre }}</a> {# Muestra cada categoría como una etiqueta. #}
                         {% empty %}
-                            <span class="text-muted">Sin categoría</span>
+                            <span class="text-muted">Sin categoría</span> {# Mensaje si no hay categorías disponibles. #}
                         {% endfor %}
-                    </header>                    
+                    </header>
+
                     <!-- Synopsis -->
-                    <section class="mb-5">
-                        <p class="fs-5 mb-4">{{ pelicula.sinopsis }}</p>
-                        <ul class="list-unstyled">
-                            <li><strong>Duración:</strong> {{ pelicula.duracion }} minutos</li>
-                            <li><strong>Director:</strong> {{ pelicula.director }}</li>
+                    <section class="mb-5"> {# Sección para la sinopsis y detalles adicionales. #}
+                        <p class="fs-5 mb-4">{{ pelicula.sinopsis }}</p> {# Muestra la sinopsis de la película. #}
+                        <ul class="list-unstyled"> {# Lista sin estilos para detalles adicionales. #}
+                            <li><strong>Duración:</strong> {{ pelicula.duracion }} minutos</li> {# Duración de la película. #}
+                            <li><strong>Director:</strong> {{ pelicula.director }}</li> {# Nombre del director. #}
                         </ul>
                     </section>
                 </article>
+
                 <!-- Comments -->
-                <section>
-                    <h5 class="fw-bold">Comentarios</h5>
-                    <div class="card bg-light my-4">
-                        <div class="card-body">
-                            <form class="mb-4" method="POST" action="{% url 'comentar' pelicula.id %}">
-                                {% csrf_token %}
-                                <textarea class="form-control" rows="3" name="texto" placeholder="Escribe un comentario..."></textarea>
-                                <button class="btn btn-primary mt-2" type="submit">Publicar</button>
+                <section> {# Sección para los comentarios. #}
+                    <h5 class="fw-bold">Comentarios</h5> {# Título de la sección de comentarios. #}
+                    <div class="card bg-light my-4"> {# Contenedor con fondo claro para los comentarios. #}
+                        <div class="card-body"> {# Contenedor del formulario y lista de comentarios. #}
+
+                            <!-- Comment Form -->
+                            <form class="mb-4" method="POST" action="{% url 'comentar' pelicula.id %}"> {# Formulario para añadir un comentario. #}
+                                {% csrf_token %} {# Protección contra CSRF. #}
+                                <textarea class="form-control" rows="3" name="texto" placeholder="Escribe un comentario..."></textarea> {# Campo para escribir el comentario. #}
+                                <button class="btn btn-primary mt-2" type="submit">Publicar</button> {# Botón para enviar el comentario. #}
                             </form>
-                            {% for comentario in comentarios %}
-                            <div class="d-flex mb-4">
-                                <div class="flex-shrink-0">
-                                    <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="Usuario" />
+
+                            <!-- Comment List -->
+                            {% for comentario in comentarios %} {# Itera sobre los comentarios de la película. #}
+                            <div class="d-flex mb-4"> {# Contenedor para cada comentario. #}
+                                <div class="flex-shrink-0"> {# Contenedor de la imagen del usuario. #}
+                                    <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="Usuario" /> {# Imagen del usuario (placeholder). #}
                                 </div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">{{ comentario.usuario.username }}</div>
-                                    <p>{{ comentario.texto }}</p>
-                                    <div class="text-muted fst-italic">{{ comentario.fecha_creacion }}</div>
+                                <div class="ms-3"> {# Contenedor del contenido del comentario. #}
+                                    <div class="fw-bold">{{ comentario.usuario.username }}</div> {# Nombre de usuario. #}
+                                    <p>{{ comentario.texto }}</p> {# Texto del comentario. #}
+                                    <div class="text-muted fst-italic">{{ comentario.fecha_creacion }}</div> {# Fecha de creación del comentario. #}
                                 </div>
                             </div>
                             {% empty %}
-                            <p class="text-muted">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+                            <p class="text-muted">No hay comentarios aún. ¡Sé el primero en comentar!</p> {# Mensaje si no hay comentarios. #}
                             {% endfor %}
                         </div>
                     </div>
-                </section>                
+                </section>
             </div>
         </div>
     </div>
 </section>
-{% endblock %}
+{% endblock %} {# Fin del bloque de contenido. #}

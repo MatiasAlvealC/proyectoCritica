@@ -1,31 +1,31 @@
-{% extends 'core/base.html' %}
+{% extends 'core/base.html' %} {# Extiende la plantilla base para mantener la estructura común del sitio. #}
 
-{% block banner-img %}
-{% load static %}
+{% block banner-img %} {# Bloque para la imagen del banner (vacío en esta plantilla, puede ser personalizado). #}
+{% load static %} {# Carga el archivo estático para poder usar imágenes y archivos como CSS, JS, etc. #}
 {% endblock %}
 
-{% block banner-txt %}
+{% block banner-txt %} {# Bloque para el texto del banner (vacío en esta plantilla, puede ser personalizado). #}
 {% endblock %}
 
-{% block content %}
-{% load crispy_forms_tags %}
+{% block content %} {# Bloque de contenido, donde se incluirá el cuerpo de la página. #}
+{% load crispy_forms_tags %} {# Carga el filtro 'crispy' para mejorar la presentación de los formularios en Django. #}
 
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
-        <div class="card-body">
-            <h3 class="card-title text-center mb-4">Iniciar Sesión</h3>
-            <form action="" method="post">
-                {% csrf_token %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;"> {# Contenedor con estilo para centrar el formulario verticalmente en la página. #}
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;"> {# Tarjeta con sombra y padding, con un tamaño máximo de 400px de ancho. #}
+        <div class="card-body"> {# Cuerpo de la tarjeta. #}
+            <h3 class="card-title text-center mb-4">Iniciar Sesión</h3> {# Título centrado del formulario de inicio de sesión. #}
+            <form action="" method="post"> {# Formulario que usa el método POST para enviar datos. #}
+                {% csrf_token %} {# Token CSRF para evitar ataques de falsificación de solicitudes entre sitios. #}
                 <!-- Formulario -->
-                {{ form|crispy }}
+                {{ form|crispy }} {# Muestra el formulario de inicio de sesión usando el filtro crispy para darle un mejor formato. #}
                 <!-- Botones -->
-                <div class="d-flex justify-content-between align-items-center mt-4">
-                    <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm">Registrarse</a>
-                    <button class="btn btn-primary btn-sm" type="submit">Iniciar Sesión</button>
+                <div class="d-flex justify-content-between align-items-center mt-4"> {# Contenedor para los botones de "Registrarse" y "Iniciar sesión". #}
+                    <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm">Registrarse</a> {# Enlace a la página de registro. #}
+                    <button class="btn btn-primary btn-sm" type="submit">Iniciar Sesión</button> {# Botón para enviar el formulario de inicio de sesión. #}
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-{% endblock %}
+{% endblock %} {# Finaliza el bloque de contenido. #}

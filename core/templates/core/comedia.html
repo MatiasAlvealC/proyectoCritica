@@ -1,39 +1,41 @@
-{% extends 'core/base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'core/base.html' %} {# Extiende la plantilla base del proyecto. #}
+{% load static %} {# Carga de archivos estáticos en Django. #}
+{% block content %} {# Inicio del bloque de contenido, que será renderizado en la plantilla base. #}
 <section class="py-5">
   <div class="container px-5 my-5">
       <!-- Breadcrumb -->
       <div class="breadcrumb-option mb-4">
           <div class="d-flex align-items-center">
-              <a href="/" class="text-decoration-none text-muted"><i class="fa fa-home me-2"></i> Inicio</a>
+              <a href="/" class="text-decoration-none text-muted">
+                  <i class="fa fa-home me-2"></i> Inicio
+              </a> {# Enlace al inicio con ícono de casa. #}
+              <span class="mx-2 text-muted">&gt;</span> {# Separador visual entre las rutas del breadcrumb. #}
+              <a href="/categories/" class="text-decoration-none text-muted">Categorías</a> {# Enlace a la página de categorías. #}
               <span class="mx-2 text-muted">&gt;</span>
-              <a href="/categories/" class="text-decoration-none text-muted">Categorías</a>
-              <span class="mx-2 text-muted">&gt;</span>
-              <span class="text-muted">Comedia</span>
+              <span class="text-muted">Comedia</span> {# Indica la categoría actual como texto no clickeable. #}
           </div>
       </div>
 
-      <!-- Title and Filter -->
+      <!-- Title and Description -->
       <div class="row gx-5 justify-content-between mb-4">
           <div class="col-lg-8 col-md-8 col-sm-6">
               <div class="section-title">
-                  <h2 class="fw-bolder">Películas de Comedia</h2>
-                  <p class="lead fw-normal text-muted mb-0">Explora las películas más divertidas y entretenidas.</p>
+                  <h2 class="fw-bolder">Películas de Comedia</h2> {# Título principal de la página. #}
+                  <p class="lead fw-normal text-muted mb-0">Explora las películas más divertidas y entretenidas.</p> {# Breve descripción de la categoría. #}
               </div>
           </div>
       </div>
 
       <!-- Movie Cards -->
       <div class="row gx-5">
-          {% for pelicula in page_obj %}
+          {% for pelicula in page_obj %} {# Itera sobre las películas disponibles en la página actual (paginadas). #}
           <div class="col-lg-4 mb-5">
-              <div class="card h-100 shadow border-0">
-                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" />
+              <div class="card h-100 shadow border-0"> {# Tarjeta de película con sombra y sin bordes. #}
+                  <img class="card-img-top" src="{{ pelicula.image.url }}" alt="{{ pelicula.titulo }}" /> {# Imagen de la película. #}
                   <div class="card-body p-4">
-                      <div class="badge bg-primary bg-gradient rounded-pill mb-2">Película</div>
+                      <div class="badge bg-primary bg-gradient rounded-pill mb-2">Película</div> {# Etiqueta destacando el tipo de contenido. #}
                       <a class="text-decoration-none link-dark stretched-link" href="{% url 'pelicula_detalles' pelicula.id %}">
-                          <h5 class="card-title mb-3">{{ pelicula.titulo }}</h5>
+                          <h5 class="card-title mb-3">{{ pelicula.titulo }}</h5> {# Título de la película con enlace a sus detalles. #}
                       </a>
                   </div>
               </div>
@@ -44,23 +46,31 @@
       <!-- Pagination -->
       <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
           <ul class="pagination">
-              {% if page_obj.has_previous %}
-              <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+              {% if page_obj.has_previous %} {# Comprueba si existe una página anterior. #}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a> {# Enlace a la página anterior. #}
+              </li>
               {% endif %}
 
-              {% for num in page_obj.paginator.page_range %}
-              {% if page_obj.number == num %}
-              <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-              {% else %}
-              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+              {% for num in page_obj.paginator.page_range %} {# Itera sobre las páginas disponibles en el rango del paginador. #}
+              {% if page_obj.number == num %} {# Marca la página actual como activa. #}
+              <li class="page-item active">
+                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+              </li>
+              {% else %} {# Otras páginas no activas. #}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+              </li>
               {% endif %}
               {% endfor %}
 
-              {% if page_obj.has_next %}
-              <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+              {% if page_obj.has_next %} {# Comprueba si existe una página siguiente. #}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a> {# Enlace a la página siguiente. #}
+              </li>
               {% endif %}
           </ul>
       </nav>
   </div>
 </section>
-{% endblock %}
+{% endblock %} {# Fin del bloque de contenido. #}

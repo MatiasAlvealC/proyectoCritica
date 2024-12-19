@@ -1,22 +1,22 @@
-{% extends 'core/base.html' %}
-{% load static %}
+{% extends 'core/base.html' %} {# Extiende la plantilla base para mantener la estructura común del sitio. #}
+{% load static %} {# Carga las etiquetas de archivos estáticos (como imágenes, hojas de estilo, etc.). #}
 
-{% block content %}
-<section class="py-5">
-  <div class="container px-5 my-5">
-    <div class="row align-items-center">
-      <div class="col-md-6">
-        <img src="{% static 'core/img/gusto.jpeg' %}" alt="Gustos" class="img-fluid" />
+{% block content %} {# Inicia el bloque de contenido que se insertará en la plantilla base. #}
+<section class="py-5"> {# Sección con padding vertical para dar espacio a la sección de contenido. #}
+  <div class="container px-5 my-5"> {# Contenedor con padding horizontal y margen vertical para centrar el contenido. #}
+    <div class="row align-items-center"> {# Fila con elementos centrados verticalmente. #}
+      <div class="col-md-6"> {# Columna que ocupa la mitad del espacio en pantallas medianas y grandes. #}
+        <img src="{% static 'core/img/gusto.jpeg' %}" alt="Gustos" class="img-fluid" /> {# Imagen que se ajusta al tamaño de su contenedor. #}
       </div>
-      <div class="col-md-6">
-        <h2 class="fw-bolder">Nosotros</h2>
-        <p class="lead fw-normal text-muted mb-5">Bienvenido a nuestra página de crítica de películas, un espacio dedicado a los amantes del cine donde puedes explorar, criticar y compartir tus opiniones sobre las películas más recientes y clásicas.</p>
-        <p class="text-muted">En nuestra plataforma, no solo encontrarás reseñas detalladas y análisis profundos de cada película, sino que también tendrás la oportunidad de dejar tus propios comentarios y críticas. Creemos que cada opinión cuenta y queremos que nuestra comunidad participe activamente en la discusión sobre el cine.</p>
-        <p class="text-muted">Nos enorgullece ser una de las páginas de crítica de películas más reconocidas, donde los cinéfilos pueden descubrir nuevas obras, compartir sus pensamientos y conectarse con otros apasionados del séptimo arte. Nuestro equipo está compuesto por críticos de cine experimentados y entusiastas que trabajan arduamente para ofrecerte contenido de calidad.</p>
-        <p class="text-muted">Es importante mencionar que todas las películas presentadas en nuestra página están protegidas por derechos de autor. Respetamos la propiedad intelectual y nos aseguramos de que nuestro contenido cumpla con las normativas legales. Nuestro objetivo es promover el cine y brindar un espacio seguro y respetuoso para todos los usuarios.</p>
-        <p class="text-muted">¡Únete a nuestra comunidad y comparte tu pasión por el cine! Te invitamos a explorar nuestras reseñas, dejar tus comentarios y ser parte de esta gran familia de cinéfilos. Juntos, podemos hacer de este un lugar donde el cine sea celebrado y discutido en todas sus formas.</p>
+      <div class="col-md-6"> {# Otra columna que ocupa la otra mitad del espacio en pantallas medianas y grandes. #}
+        <h2 class="fw-bolder">Nosotros</h2> {# Título en negrita de la sección "Nosotros". #}
+        <p class="lead fw-normal text-muted mb-5">Bienvenido a nuestra página de crítica de películas, un espacio dedicado a los amantes del cine donde puedes explorar, criticar y compartir tus opiniones sobre las películas más recientes y clásicas.</p> {# Descripción introductoria de la página. #}
+        <p class="text-muted">En nuestra plataforma, no solo encontrarás reseñas detalladas y análisis profundos de cada película, sino que también tendrás la oportunidad de dejar tus propios comentarios y críticas. Creemos que cada opinión cuenta y queremos que nuestra comunidad participe activamente en la discusión sobre el cine.</p> {# Explicación de lo que ofrece la plataforma. #}
+        <p class="text-muted">Nos enorgullece ser una de las páginas de crítica de películas más reconocidas, donde los cinéfilos pueden descubrir nuevas obras, compartir sus pensamientos y conectarse con otros apasionados del séptimo arte. Nuestro equipo está compuesto por críticos de cine experimentados y entusiastas que trabajan arduamente para ofrecerte contenido de calidad.</p> {# Explica la misión y el equipo detrás de la página. #}
+        <p class="text-muted">Es importante mencionar que todas las películas presentadas en nuestra página están protegidas por derechos de autor. Respetamos la propiedad intelectual y nos aseguramos de que nuestro contenido cumpla con las normativas legales. Nuestro objetivo es promover el cine y brindar un espacio seguro y respetuoso para todos los usuarios.</p> {# Aclaración sobre el respeto a los derechos de autor y la legalidad del contenido. #}
+        <p class="text-muted">¡Únete a nuestra comunidad y comparte tu pasión por el cine! Te invitamos a explorar nuestras reseñas, dejar tus comentarios y ser parte de esta gran familia de cinéfilos. Juntos, podemos hacer de este un lugar donde el cine sea celebrado y discutido en todas sus formas.</p> {# Llamado a la acción para que los usuarios se unan y participen en la comunidad. #}
       </div>
     </div>
   </div>
 </section>
-{% endblock %}
+{% endblock %} {# Finaliza el bloque de contenido. #}
