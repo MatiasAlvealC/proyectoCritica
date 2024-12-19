@@ -1,37 +1,55 @@
-{% extends 'core/base.html' %} {# Extiende la plantilla base "core/base.html" para reutilizar su estructura. #}
-{% load static %} {# Carga la etiqueta `static` de Django para usar archivos estáticos en la plantilla. #}
-{% block content %} {# Define un bloque "content" que será insertado en la plantilla base. #}
-<section class="py-5"> {# Crea una sección con un espaciado vertical de 5 unidades. #}
-    <div class="container px-5 my-5"> {# Contenedor con espaciado horizontal y vertical para un diseño limpio. #}
-        <div class="text-center mb-5"> {# Contenedor alineado al centro con un margen inferior. #}
-            <h1 class="fw-bold">Contáctanos</h1> {# Encabezado principal con texto en negrita. #}
-            <p class="text-muted">¿Tienes alguna pregunta o comentario? Estamos aquí para ayudarte.</p> {# Texto descriptivo con estilo gris claro. #}
-        </div> {# Cierra el contenedor centrado. #}
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+<section class="py-5"> {# Sección principal con espaciado vertical. #}
+    <div class="container px-5 my-5"> {# Contenedor principal con márgenes ajustados para una mejor presentación. #}
+        <div class="text-center mb-5"> {# Encabezado centrado con margen inferior. #}
+            <h1 class="fw-bold">Contáctanos</h1> {# Título principal con estilo de negrita. #}
+            <p class="text-muted">¿Tienes alguna pregunta o comentario? Estamos aquí para ayudarte.</p> {# Texto descriptivo para contextualizar el formulario. #}
+        </div>
 
-        <div class="row justify-content-center"> {# Inicia una fila de Bootstrap y centra los elementos horizontalmente. #}
-            <div class="col-lg-8"> {# Define una columna de ancho 8 para pantallas grandes. #}
-                <form> {# Inicia el formulario de contacto. #}
-                    <div class="mb-3"> {# Contenedor para el campo con un margen inferior. #}
-                        <label for="name" class="form-label fw-bold">Nombre</label> {# Etiqueta para el campo "Nombre" con texto en negrita. #}
-                        <input type="text" class="form-control" id="name" placeholder="Tu nombre completo" required> {# Campo de entrada de texto para el nombre, obligatorio. #}
-                    </div> {# Cierra el contenedor del campo de nombre. #}
+        <div class="row justify-content-center"> {# Fila de Bootstrap para centrar horizontalmente el contenido. #}
+            <div class="col-lg-8"> {# Columna con ancho adaptable para pantallas grandes. #}
+                <form action="" method="POST"> {# Inicia el formulario con método POST para enviar datos. #}
+                    {% csrf_token %} {# Protección contra ataques CSRF. Obligatorio en formularios de Django. #}
 
-                    <div class="mb-3"> {# Contenedor para el campo de correo electrónico. #}
-                        <label for="email" class="form-label fw-bold">Correo Electrónico</label> {# Etiqueta para el campo de correo electrónico con texto en negrita. #}
-                        <input type="email" class="form-control" id="email" placeholder="tuemail@ejemplo.com" required> {# Campo de entrada de correo electrónico, obligatorio. #}
-                    </div> {# Cierra el contenedor del campo de correo electrónico. #}
+                    <div class="mb-3"> {# Contenedor con margen inferior para el campo del nombre. #}
+                        <label for="name" class="form-label fw-bold">Nombre y Apellido</label> {# Etiqueta descriptiva del campo. #}
+                        {{ form.name }} {# Renderiza el campo del formulario para el nombre. #}
+                        {{ form.name.errors }} {# Muestra errores asociados al campo, si los hay. #}
+                    </div>
 
-                    <div class="mb-3"> {# Contenedor para el campo de mensaje. #}
-                        <label for="message" class="form-label fw-bold">Mensaje</label> {# Etiqueta para el campo de texto con texto en negrita. #}
-                        <textarea class="form-control" id="message" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea> {# Área de texto para el mensaje, obligatoria. #}
-                    </div> {# Cierra el contenedor del campo de mensaje. #}
+                    <div class="mb-3"> {# Contenedor con margen inferior para el campo del correo electrónico. #}
+                        <label for="email" class="form-label fw-bold">Correo Electrónico</label> {# Etiqueta descriptiva del campo. #}
+                        {{ form.email }} {# Renderiza el campo del formulario para el correo. #}
+                        {{ form.email.errors }} {# Muestra errores asociados al campo, si los hay. #}
+                    </div>
 
-                    <div class="d-grid"> {# Contenedor para alinear el botón al ancho completo. #}
-                        <button type="submit" class="btn btn-primary btn-lg">Enviar Mensaje</button> {# Botón de envío grande y con estilo primario. #}
-                    </div> {# Cierra el contenedor del botón. #}
+                    <div class="mb-3"> {# Contenedor con margen inferior para el campo del mensaje. #}
+                        <label for="message" class="form-label fw-bold">Mensaje</label> {# Etiqueta descriptiva del campo. #}
+                        {{ form.message }} {# Renderiza el campo del formulario para el mensaje. #}
+                        {{ form.message.errors }} {# Muestra errores asociados al campo, si los hay. #}
+                    </div>
+
+                    <div class="d-grid"> {# Contenedor para que el botón ocupe el ancho completo. #}
+                        <button type="submit" class="btn btn-primary btn-lg" 
+                            {% if 'ok' in request.GET %} disabled {% endif %}>Enviar Mensaje</button> {# Botón de envío. Se desactiva si el mensaje fue enviado con éxito. #}
+                    </div>
                 </form> {# Cierra el formulario. #}
+
+                {% if 'ok' in request.GET %} {# Verifica si hay un mensaje de éxito. #}
+                <div class="alert alert-success mt-5" role="alert"> {# Mensaje de éxito con estilo de alerta. #}
+                    <strong>El mensaje se ha enviado correctamente.</strong>
+                </div>
+                {% endif %}
+
+                {% if 'error' in request.GET %} {# Verifica si hay un mensaje de error. #}
+                <div class="alert alert-danger mt-5" role="alert"> {# Mensaje de error con estilo de alerta. #}
+                    <strong>El mensaje no ha podido ser enviado. Por favor, intente más tarde.</strong>
+                </div>
+                {% endif %}
             </div> {# Cierra la columna. #}
-        </div> {# Cierra la fila centrada. #}
+        </div> {# Cierra la fila. #}
     </div> {# Cierra el contenedor principal. #}
-</section> {# Cierra la sección de la página. #}
-{% endblock %} {# Finaliza el bloque "content". #}
+</section> {# Cierra la sección de contenido. #}
+{% endblock %}

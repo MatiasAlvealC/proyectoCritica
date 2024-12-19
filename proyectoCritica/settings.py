@@ -119,3 +119,10 @@ LOGOUT_REDIRECT_URL = 'home'  # Redirige a la página de inicio después de cerr
 
 # Configuración de crispy-forms con Bootstrap 4.
 CRISPY_TEMPLATE_PACK = 'bootstrap4'  # Establece el pack de plantillas crispy para usar Bootstrap 4.
+
+
+# Looking to send emails in production? Check out our Email API/SMTP product!
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'f7642f16bcf916'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = '2525'

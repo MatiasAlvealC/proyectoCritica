@@ -8,6 +8,9 @@ from django.contrib.auth import authenticate, login  # Funciones para autenticar
 from .forms import CustomUserCreationForm  # Formulario personalizado para la creación de usuarios.
 from django.contrib.auth.forms import AuthenticationForm  # Formulario para la autenticación de usuarios.
 from django.contrib.auth.decorators import login_required  # Decorador para proteger vistas que requieren estar autenticado.
+from django.urls import reverse
+from .forms import contactForm
+from django.core.mail import EmailMessage
 
 # Vista para la página de inicio mostrando las últimas películas en orden descendente por fecha de creación.
 def home(request):
@@ -116,7 +119,30 @@ def nosotros(request):
 
 # Vista para la página de contacto.
 def contacto(request):
-    return render(request, "core/contacto.html")  # Renderiza la página de Contacto.
+    contact_form = contactForm() # se captura el formulario
+    if request.method == "POST": # si algo viajo por el metodo POST
+        contact_form = contactForm(data=request.POST) # se incluyen los valores enviados a el objeto contact_form
+        if contact_form.is_valid(): # si lo camputarado en contact_form es valido se le entragaran a los siguientes objetos:
+            name = request.POST.get('name','') 
+            email = request.POST.get('email','')
+            message = request.POST.get('message','')
+
+            # se arma el email
+            email = EmailMessage(
+                'Mensaje de contacto recibido',
+                'Mensaje enviado por {} <{}>: \n\n{}'.format(name,email,message), email,
+                ['f7642f16bcf916@inbox.mailtrap.io'],reply_to=[email], #esto envia a una lita de correo, pero nosotros solo tenemos mailtrap configurado
+            )
+
+            try:
+                email.send() #aqui se envia
+                # esta todo ok
+                return redirect(reverse('contacto')+'?ok')
+            except:
+                # ha habido un error y retorno a ERROR
+                return redirect(reverse('contacto')+'?error')
+
+    return render(request, "core/contacto.html", {'form':contact_form})  # Renderiza la página de Contacto.
 
 # Vista para el registro de usuarios.
 def register(request):
